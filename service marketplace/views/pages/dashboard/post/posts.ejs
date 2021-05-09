@@ -1,0 +1,62 @@
+<%- include('../../../partials/head.ejs') %>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.4/croppie.css">
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-2">
+            <%- include('../../../partials/sidebar.ejs') %>
+        </div>
+
+        <div class="col-md-10 my-5">
+
+            <div class="row">
+                <div class="col-md-10 offset-md-1 mygig">
+                    <div class="card">
+                        <h2 style="text-align: center;">List Of My Gigs</h2>
+                        <div class="row">
+                            <% if (posts.length === 0) { %>
+                            <div class="text-center text-muted my-3 mx-3">
+                                <p>There is no posts available right now</p>
+                                <a href="/posts/create" class="btn btn-primary btn-sm"> Create Post Now </a>
+                            </div>
+                            <% } else { %>
+                            <% for (let post of posts.reverse()) { %>
+                            <div class=" col-md-4 card">
+                                <% if (post.thumbnail) { %>
+                                <img src="<%= post.thumbnail %>" alt="<%= post.title %>" class="card-img-top mt-3">
+                                <% } %>
+                                <div>
+                                    <a href="/posts/edit/<%= post._id %>" style="color: #222;">
+                                        <h5 class="title"><%= post.title %></h5>
+                                    </a>
+                                </div>
+                                <div class="footer d-flex">
+                                    <p class="rating">4</p>
+                                    <i class="fa fa-star" style="margin-top: 11px;
+                                    font-size: 12px;"></i>
+                                     <h5 class="price">Basic price</h5>
+                                    
+                                       <h5 class="gig-price"><%= post.gigPricing %></h5>
+                                     
+                                     <p class="tk">TK</p>
+                              </div>
+                            </div>
+                            <% } %>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<%- include('../../../partials/fotter.ejs') %>
+
+
+</body>
+
+</html>

@@ -1,0 +1,177 @@
+<%- include('../../partials/head.ejs') %>
+
+<!-- <section class="filter-job">
+    <div class="container">
+       <div class="row">
+        <div class="col-md-12">
+          
+            <a 
+                href="/explorer?filter=latest" 
+                class="btn <%= filter==='latest' ? 'btn-primary' : 'btn-secondary'%>"
+            >Latest</a>
+            <a 
+                href="/explorer?filter=week" 
+                class="btn <%= filter==='week' ? 'btn-primary' : 'btn-secondary'%>"
+            >Week</a>
+            <a 
+                href="/explorer?filter=month" 
+                class="btn <%= filter==='month' ? 'btn-primary' : 'btn-secondary'%>"
+            >Month</a>
+            <a 
+                href="/explorer?filter=all" 
+                class="btn <%= filter==='all' ? 'btn-primary' : 'btn-secondary'%>"
+            >All</a>
+        </div>
+       </div>
+    </div>
+</section> -->
+ <!-- Search section Start -->
+ <section class="search-box">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 offset-3">
+          <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Search Service Here" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Search section End -->
+
+    <!-- Filter section Start -->
+    <section class="filter">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-2 offset-1">
+              <h5>Filter</h5>
+            </div>
+  
+            <div class="col-md-2">
+                <select class="form-control" id="" name="">
+                     <option selected hidden="" ="">Job Type</option>
+                     <option>1</option>
+                     <option>2</option>
+                     <option>3</option>
+                     <option>4</option>
+                </select>
+            </div>
+  
+            <div class="col-md-2">
+              <select class="form-control" id="" name="">
+                     <option selected hidden="" ="">Location</option>
+                     <option>1</option>
+                     <option>2</option>
+                     <option>3</option>
+                     <option>4</option>
+                </select>
+            </div>
+  
+            <div class="col-md-2">
+              <select class="form-control" id="" name="">
+                     <option selected hidden="" ="">Amount</option>
+                     <option>1</option>
+                     <option>2</option>
+                     <option>3</option>
+                     <option>4</option>
+                </select>
+            </div>
+  
+          </div>
+        </div>
+      </section>
+      <!-- Filter section End -->
+  
+<section class="gig-show-templete">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3" style="width: 100%;">
+         <div class="row">
+            <% if (posts.length === 0) { %>
+                <p class="text-center text-muted">There is Nothing to Show</p>
+             <% } else { %>
+                    <% for (let post of posts) { %>
+                        <div class="gig-box-shadow mb-3">
+                         <% if (post.thumbnail) { %>
+                          <img class="img-fluid gig-thumbnail" src="<%= post.thumbnail %>">
+                         <% } %>
+                         <div class="d-flex">
+                                <small >
+                                    <img src="<%= user.profilePics %>" class="rounded-circle pro-pic">
+                                    <div style="margin-top: -33px;">
+                                        <a href="/author/<%= post.author._id %>" class="user-name"><%= post.author.username %></a>
+                                    </div>
+                                </small>
+                         </div>
+                          <div class="title">
+                            <a href="/explorer/<%= post._id %>"  style="color: #222222">
+                                <h5><%= post.title %></h5>
+                              </a>
+                          </div>
+                                        
+                          <div class="footer d-flex">
+                                 <p class="rating">4</p>
+                                 <i class="fa fa-star" style="margin-top:13px;"></i>
+                                  <h5 class="basic-price">Basic price</h5>
+                                  <a href="/explorer/<%= post._id %>" style="color: #222222">
+                                    <h5 class="gig-price"><%= post.gigPricing %></h5>
+                                  </a>
+                                  <p class="tk">TK</p>
+                           </div>
+                          </div>
+                  <% } %>
+             <% } %>
+         </div>
+        </div>
+     </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+   <section class="pagination">
+       <div class="container">
+           <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <% if (totalPage > 1) { %>
+                     <nav>
+                         <ul class="pagination">
+                             <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>" >
+                                 <a class="page-link" href="<%= `/explorer?filter=${filter}&page=${currentPage - 1}`%>">
+                                     Previous
+                                 </a>
+                             </li>
+     
+                             <% for (let i=1; i<=totalPage; i++) { %>
+                                 <li class="page-item <%= currentPage === i ? 'active' : '' %>" >
+                                     <a class="page-link" href="<%= `/explorer?filter=${filter}&page=${i}`%>">
+                                         <%= i %>
+                                     </a>
+                                 </li>
+                             <% } %>
+     
+                             <li class="page-item <%= currentPage === totalPage ? 'disabled' : '' %>" >
+                                 <a class="page-link" href="<%= `/explorer?filter=${filter}&page=${currentPage + 1}`%>">
+                                     Next
+                                 </a>
+                             </li>
+                         </ul>
+                     </nav>
+                 <% } %>
+             </div>
+           </div>
+       </div>
+   </section>
+
+<%- include('../../partials/fotter.ejs') %>
+<script src="/scripts/bookmarks.js"></script>
+
+</body>
+</html>

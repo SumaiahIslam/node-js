@@ -1,0 +1,141 @@
+<%- include('../../../partials/head.ejs') %>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.css">
+
+
+<section class="create-gig-page">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-2">
+                <%- include('../../../partials/sidebar.ejs') %>
+            </div>
+            
+            <div class="col-md-8 offset-1 gig-post">
+                <div style="width: 85%;">
+                    <h2 class="text-center">Create A New Gig</h2>
+                    <form 
+                          action="/posts/create" 
+                          method="POST" 
+                          enctype="multipart/form-data">
+                          
+                        <div class="form-group">
+                            <label for="title">Title</label>
+                            <input 
+                              type="text" 
+                              name="title" 
+                              id="title" 
+                              class="form-control 
+                              <%= error.title ? 'is-invalid' : '' %>" 
+                              value="<%= value.title ? value.title : '' %>"
+                            >
+                            <div class="invalid-feedback">
+                                <%= error.title %>
+                            </div>
+                        </div>
+    
+                        <div class="form-group">
+                            <label for="tiny-mce-post-body">Description</label>
+                            <textarea 
+                              name="body" 
+                              id="tiny-mce-post-body" 
+                              class="form-control 
+                              <%= error.body ? 'is-invalid' : '' %>">
+                              <%- value.body %>
+                            </textarea>
+                            <div class="invalid-feedback">
+                                <%= error.body %>
+                            </div>
+                        </div>
+    
+                        <div class="form-group">
+                            <label for="tags"> Enter Some Tags (Max 5) </label>
+                            <input 
+                               type="text" 
+                               name="tags" 
+                               id="tags" 
+                               placeholder="tag1, tag2, tag3, .." 
+                               class="form-control" 
+                               value="<%= value.tags ? value.tags : '' %>">
+                        </div>
+    
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Upload</span>
+                            </div>
+                            <div class="custom-file">
+                                <input 
+                                   type="file" 
+                                   name="post-thumbnail" 
+                                   class="custom-file-input" 
+                                   id="inputGroupFile">
+                                <label 
+                                   for="inputGroupFile" 
+                                   class="custom-file-label">
+                                   Choose File
+                               </label>
+                            </div>
+                        </div>
+    
+                        <div class="form-group">
+                            <h3>Pricing</h3>
+                            <div>
+                                <input 
+                                type="text" 
+                                name="gigPricing" 
+                                id="gigPricing" 
+                                placeholder="gigPricing" 
+                                class="form-control price-duration
+                                <%= error.gigPricing? 'is-invalid' : '' %>" 
+                                value="<%= value.gigPricing ? value.gigPricing : '' %>"
+                             >
+                               <div class="invalid-feedback">
+                                 <%= error.gigPricing %>
+                               </div>
+                              </div>
+                          
+                        </div>
+
+                       <div class="form-group">
+                            <div >
+                                <input 
+                                type="text" 
+                                name="duration" 
+                                id="workDuration" 
+                                placeholder="Duration" 
+                                style="margin-left:32%; margin-top: -34px;"
+                                class="form-control price-duration
+                                <%= error.workDuration? 'is-invalid' : '' %>" 
+                                value="<%= value.workDuration ? value.workDuration : '' %>"
+                             >
+                               <div class="invalid-feedback">
+                                 <%= error.workDuration %>
+                               </div>
+                              </div>
+                        </div>
+                        <input 
+                           type="submit" 
+                           class="btn btn-primary create-gig-btn" 
+                           value="Create Gig">
+                    </form>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+</section>
+
+<%- include('../../../partials/fotter.ejs') %>
+<script src="https://cdn.tiny.cloud/1/5ml6irb2bx6u56fu480ur9xtqtux4wn9tgjp7vkg1ood92zp/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+<script src="/scripts/tinymce.js"></script>
+
+<script>
+
+    $('#inputGroupFile').on('change', function(e) {
+        let filename = e.target.files[0].name
+        $(this).next('.custom-file-label').html(filename)
+    })
+</script>
+
+</body>
+</html>
